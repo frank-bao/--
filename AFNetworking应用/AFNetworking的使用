@@ -1,0 +1,47 @@
+AFNetworking的使用：
+
+https://github.com/AFNetworking/AFNetworking
+
+你所想到的所有方法，都可以使用AFNetworking来与外界通讯：
+AFJSONOperation, AFPropertyListOperation 和 AFXMLOperation用来解析结构化数据。
+UIImageView+AFNetworking用来快捷的填充image view。
+AFHTTPClient用来进行更底层的请求。
+用自定义的AFHTTPClient子类来访问一个web service。
+AFNetworkActivityIndicatorManager用来给用户做出网络访问的提示。
+AFImageRequestOperation用来加载图片。
+AFNetworking可以帮助你进行网络开发！
+
+数据的上传和下载：
+AFJSONOperation, AFPropertyListOperation 和 AFXMLOperation
+
+文件的上传和下载：
+1.文件的下载：
+先创建一个AFURLConnectionOperation对象，然后再使用它的属性outputStream进行处理
+operation.outputStream = [NSOutputStream outputStreamToFileAtPath:@"download.zip" append:NO];
+
+2.文件的上传：
+NSURL *url = [NSURL URLWithString:@"http://api-base-url.com"];
+AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
+NSData *imageData = UIImageJPEGRepresentation([UIImage imageNamed:@"avatar.jpg"], 0.5);
+NSMutableURLRequest *request = [httpClient multipartFormRequestWithMethod:@"POST" path:@"/upload" parameters:nil constructingBodyWithBlock: ^(id formData) {
+    [formData appendPartWithFileData:imageData name:@"avatar" fileName:@"avatar.jpg" mimeType:@"image/jpeg"];
+}];
+
+文件的特例：
+1.图片请求：
+UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 100.0f, 100.0f)];
+[imageView setImageWithURL:[NSURL URLWithString:@"http://i.imgur.com/r4uwx.jpg"] placeholderImage:[UIImage imageNamed:@"placeholder-avatar"]];
+
+2.图片上传处理，监测上传状态：
+didiwei  17:28:57
+NSURL *url = [NSURL URLWithString:@"http://api-base-url.com"];
+AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
+NSData *imageData = UIImageJPEGRepresentation([UIImage imageNamed:@"avatar.jpg"], 0.5);
+NSMutableURLRequest *request = [httpClient multipartFormRequestWithMethod:@"POST" path:@"/upload" parameters:nil constructingBodyWithBlock: ^(id formData) {
+    [formData appendPartWithFileData:imageData name:@"avatar" fileName:@"avatar.jpg" mimeType:@"image/jpeg"];
+}];
+AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+[operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+    NSLog(@"Sent %lld of %lld bytes", totalBytesWritten, totalBytesExpectedToWrite);
+}];
+[operation start];

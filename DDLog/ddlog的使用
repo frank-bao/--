@@ -1,0 +1,82 @@
+ddlog的使用：（系统）
+http://blog.csdn.net/viktyz/article/details/8519651
+
+
+1 把框架添加到你的应用程序
+
+主要添加的文件有以下四个
+
+@ DDLog（基础框架）
+
+@ DDASLLogger（发送到苹果的日志系统，他们显示到控制台上），个人建议没有必要
+
+@DDTTYLoyger （发送日志语句到控制台）
+
+@DDFIleLoger （把输出信息写进文件中）
+
+DDLog是强制性的，其余的都是可选的，这取决于你如何打算使用这个框架，如果你不打算纪录到一个文件，你可以跳过DDFileLogger，或者你想跳过ASl 在你的爱好快速纪录日志，你可以跳过DDASLLoger
+
+2 配置框架
+
+　　第一件事情你要做的是在你applicationDidFinishLaunching方法中配置（通常是这么做）添加你所需要的文件
+
+　　下面几行代码是在开始的时候所需要的
+
+　　[DDLog addLogger:[DDASLLogger sharedInstance]];
+
+      [DDLog addLogger:[DDTTYLogger sharedInstance]];
+
+　　上面两行代码添加了一对logging框架，换句话说，你的日志语句已经能够发送到控制台，（就像一个正常的NSLog）
+
+　　这个框架的好处之一就是它的灵活性，如果你还想要你的日志语句写入到一个文件中，你可以添加和配置fileLogger
+
+　　fileLogger = [[DDFileLogger alloc] init];
+
+fileLogger.rollingFrequency = 60 * 60 * 24; // 24 hour rolling
+
+  fileLogger.logFileManager.maximumNumberOfLogFiles = 7;
+
+  [DDLog addLogger:fileLogger];
+
+上面的代码是告诉应用程序保持一周的日志文件系统
+
+
+3 用Lumberjack输入代替你的NSLog输出
+
+DDLog的头文件定义了宏,您将使用来取代你的NSLog语句。你可以参考下面的语句来代替你的NSlog
+
+// Convert from this:
+NSLog(@"Broken sprocket detected!");
+NSLog(@"User selected file:%@ withSize:%u", filePath, fileSize);
+
+// To this:
+DDLogError(@"Broken sprocket detected!");
+DDLogVerbose(@"User selected file:%@ withSize:%u", filePath, fileSize);
+
+我们看到DDLog和NSLog有这完全相同的语法，在使用的时候不会有人和的障碍。
+
+DDLog默认有四种级别的日志，你所要做的就是决定使用那种日志级别来打印你的日志语句，它们分别是：
+
+@DDlogError
+@DDlogWarn
+@DDlogInfo
+@DDlogVerbose
+
+注释：你也可以自定义级别，你可以添加上更细微的控制代替系统四个简单的等级。
+当然你选择那个NSLog语句，这取决于你的消息的严重程度。
+
+下面的这些不同的日志等级也许正有你所需要的
+
+如果你设置的日志级别为 LOG_LEVEL_ERROR那么你只会看到DDlogError语句的输出。
+如果你将日志的级别设置为LOG_LEVEL_WARN那么你只会看到DDLogError和DDLogWarn语句。
+如果您将日志级别设置为 LOG_LEVEL_INFO,您将看到error、Warn和信息报表。
+如果您将日志级别设置为LOG_LEVEL_VERBOSE,您将看到所有DDLog语句。
+如果您将日志级别设置为 LOG_LEVEL_OFF,你不会看到任何DDLog语句。
+
+那么我在哪里设置日志级别?我必须使用一个日志级别为我的整个项目吗?
+
+
+当然不是，我们都知道它就像调试或者添加新的特性，你想详细纪录你目前正在调试的部分，这个框架提供了对每个文件的调试，所以你可以修改日志级别在你正在编辑的文件中。
+
+注释：(当然还有许多其他高级选项,比如全球日志级别,每xcode配置水平,每记录器级别等。但是我们会去,在另一篇文章)。
+下面是详细的如何在你的代码中运用这个框架
