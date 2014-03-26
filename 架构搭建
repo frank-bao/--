@@ -1,0 +1,47 @@
+
+
+
+1.界面编程
+自定义UI——一户通和视频开户的例子和code4
+2.文档编写
+文档格式：包括邮件（程序发布，团队沟通），接口，需求
+3.软件设计，架构
+一户通和视频开户的架构以及MVC的使用
+工程配置和git使用
+
+4.精通Html、Css、Javascript、Jquery等Web编程技术；——同7和10
+5.精通Oracle、Sql Server等数据库工具之一，熟悉NoSql技术更佳。——延后
+6.较好的逻辑思维分析和表达和沟通能力，要有一定的自学能力，较强的团队协作意识。
+做事（沟通、团队和逻辑思维分析）和学习的能力
+
+7.熟悉JSON、WebService、HTTP协议
+WebService、HTTP协议 ——使用AFNetworking来与外界通讯，帮助你进行网络开发
+
+ 
+8.熟悉网络安全和加密算法优先
+网络安全——socket
+加密算法——MD5的加密和解密
+
+9.JSON，XML数据解析；
+使用KissXML解析XML：注意要添加lib库
+什么是 JSON ？
+
+   * JSON 指的是 JavaScript 对象表示法（JavaScript Object Notation）
+   * JSON 是轻量级的文本数据交换格式
+   * JSON 独立于语言 *
+   * JSON 具有自我描述性，更易理解
+
+* JSON 使用 JavaScript 语法来描述数据对象，但是 JSON 仍然独立于语言和平台。JSON 解析器和 JSON 库支持许多不同的编程语言。
+http://blog.csdn.net/jiarusun000/article/details/7712364
+
+ 
+10.熟悉HTML5、CSS3、JQuery Mobile库——延后
+
+
+11.了解CoreData技术——了解但是不用，我们使用XML来存储数据
+
+12. 了解hybird app研发，熟悉html和javascript；
+hybird app：混合应用，使用webviewJavaScriptbriage
+
+http://baike.baidu.com/link?url=43OXk1FSdBgxWS4aNEtwAnUzwUvL1Oen6lJ_Zl-dL7eUI7LCU25-K8CMqRkIgI-m2-Uz_9uedvzAmcH64L-cta
+13.有敏捷流程开发经验：http://blog.csdn.net/alvanchen/article/details/5749872 迭代
